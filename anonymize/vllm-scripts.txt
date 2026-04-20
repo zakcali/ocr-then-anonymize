@@ -1,0 +1,123 @@
+# Apply to ALL GPUs in one line
+
+# 1. Set Power Limit to 250W for ALL cards
+sudo nvidia-smi -pl 250
+
+# 2. Lock Clocks to 1500MHz for ALL cards
+sudo nvidia-smi -lgc 1500
+
+watch -n 0.1 nvidia-smi
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve google/gemma-4-31B-it \
+ --served-model-name google/gemma-4-31B-it \
+ --tensor-parallel-size 4 \
+ --gpu-memory-utilization 0.90 \
+ --async-scheduling \
+ --enable-auto-tool-choice \
+ --reasoning-parser gemma4 \
+ --tool-call-parser gemma4 \
+ --max-model-len 40000 \
+ --enable-prefix-caching \
+ --max-num-seqs 40
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve /home/zafer/.cache/huggingface/hub/models--google--gemma-4-26B-A4B-it/snapshots/47b6801b24d15ff9bcd8c96dfaea0be9ed3a0301 \
+ --served-model-name google/gemma-4-26B-A4B-it \
+ --tensor-parallel-size 4 \
+ --gpu-memory-utilization 0.90 \
+ --async-scheduling \
+ --enable-auto-tool-choice \
+ --reasoning-parser gemma4 \
+ --tool-call-parser gemma4 \
+ --max-model-len 40000 \
+ --enable-prefix-caching \
+ --max-num-seqs 40
+
+HF_HUB_OFFLINE=1 TIKTOKEN_RS_CACHE_DIR=/home/zafer/.cache/tiktoken_cache PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve /home/zafer/.cache/huggingface/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a \
+ --served-model-name openai/gpt-oss-120b \
+ --tensor-parallel-size 4 \
+ --async-scheduling \
+ --gpu-memory-utilization 0.85 \
+ --max-model-len 40000 \
+ --enable-prefix-caching \
+ --max-num-seqs 50
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve google/gemma-27b-it \
+ --served-model-name google/gemma-27b-it \
+ --tensor-parallel-size 4 \
+ --async-scheduling \
+ --max-model-len 40000 \
+ --enable-prefix-caching \
+ --max-num-seqs 40
+
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve /home/zafer/.cache/huggingface/hub/models--google--medgemma-27b-text-it/snapshots/5b667cf2ddcf064085bc90952edb35a0edbfb79c \
+ --served-model-name google/medgemma-27b-text-it \
+ --tensor-parallel-size 4 \
+ --async-scheduling \
+ --max-model-len 40000 \
+ --enable-prefix-caching \
+ --max-num-seqs 40
+
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507 \
+ --served-model-name Qwen/Qwen3-30B-A3B-Instruct-2507 \
+ --max-model-len 40000 \
+ --tensor-parallel-size 4 \
+ --gpu-memory-utilization 0.90 \
+ --enable-expert-parallel \
+ --async-scheduling \
+ --enable-prefix-caching \
+ --max-num-seqs 50
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve Qwen/Qwen3-30B-A3B-Thinking-2507 \
+ --served-model-name Qwen/Qwen3-30B-A3B-Thinking-2507 \
+ --max-model-len 40000 \
+ --tensor-parallel-size 4 \
+ --gpu-memory-utilization 0.90 \
+ --enable-expert-parallel \
+ --async-scheduling \
+ --enable-prefix-caching \
+ --reasoning-parser deepseek_r1 \
+ --max-num-seqs 40
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve Qwen/Qwen3.5-27B \
+ --served-model-name Qwen/Qwen3.5-27B \
+ --max-model-len 40000 \
+ --tensor-parallel-size 4 \
+ --gpu-memory-utilization 0.90 \
+ --enable-auto-tool-choice \
+ --tool-call-parser qwen3_coder\
+ --reasoning-parser qwen3 \
+ --language-model-only \
+ --async-scheduling \
+ --enable-prefix-caching \
+ --max-num-seqs 40
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve Qwen/Qwen3.5-35B-A3B \
+ --served-model-name Qwen/Qwen3.5-35B-A3B \
+ --max-model-len 40000 \
+ --tensor-parallel-size 4 \
+ --gpu-memory-utilization 0.90 \
+ --enable-auto-tool-choice \
+ --tool-call-parser qwen3_coder\
+ --enable-expert-parallel \
+ --reasoning-parser qwen3 \
+ --async-scheduling \
+ --enable-prefix-caching \
+ --language-model-only \
+ --max-num-seqs 50
+
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 uv run vllm serve Qwen/Qwen3.6-35B-A3B \
+ --served-model-name Qwen/Qwen3.6-35B-A3B \
+ --max-model-len 40000 \
+ --tensor-parallel-size 2 \
+ --pipeline-parallel-size 2 \
+ --gpu-memory-utilization 0.90 \
+ --enable-auto-tool-choice \
+ --tool-call-parser qwen3_coder\
+ --enable-expert-parallel \
+ --reasoning-parser qwen3 \
+ --async-scheduling \
+ --enable-prefix-caching \
+ --language-model-only \
+ --max-num-seqs 50

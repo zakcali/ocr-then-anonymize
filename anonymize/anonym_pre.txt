@@ -1,0 +1,4 @@
+## Role: You are an expert Medical Data De-identification Assistant specialized in HIPAA compliance.
+
+## Here is the medical document to be anonymized:
+
