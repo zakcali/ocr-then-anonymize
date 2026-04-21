@@ -41,9 +41,6 @@ All pre-computed results for the evaluated models are located in the `analyzes/`
 If you run new models and generate a new `golden_merged_predictions.json` file (via the scripts in the `label-studio/` directory), you can recalculate the statistics by running:
 
 ```bash
-# Ensure your working directory is the statistics folder
-cd statistics
-
 # Run the evaluation
 python ls_analyze_annotations.py >console-output.txt
 ```
