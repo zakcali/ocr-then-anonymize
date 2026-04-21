@@ -45,7 +45,7 @@ If you run new models and generate a new `golden_merged_predictions.json` file (
 cd statistics
 
 # Run the evaluation
-python ls_analyze_annotations.py
+python ls_analyze_annotations.py >console-output.txt
 ```
 
 The script will automatically parse the JSON, evaluate every model present within it, and drop the new `.txt` and `.png` files into your working directory.
