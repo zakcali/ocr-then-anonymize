@@ -42,4 +42,4 @@ Running this pipeline—particularly the large unquantized LLMs via vLLM—requi
 1. **OCR Stage:** Place your raw medical PDFs/images in `ocr/pdf-in/`. Follow the instructions in `ocr/README.md` to generate Markdown files.
 2. **Anonymization Stage:** Move the generated Markdown files to `anonymize/input/`. Run your chosen LLMs via vLLM as detailed in `anonymize/README.md`.
 3. **Label Studio Stage (Evaluation):** Process the model outputs using the scripts in `label-studio/` to generate prediction coordinates and merge them with your Gold Standard annotations.
-4. **Statistics Stage:** Run the evaluation script in `statistics/` to generate performance reports and heatmaps for the models you tested.
+4. **Statistics Stage:** Run the evaluation script in `statistics/` to generate performance reports and confusion matrices for the models you tested.
