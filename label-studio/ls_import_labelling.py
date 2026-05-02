@@ -4,7 +4,7 @@ import json
 
 # --- CONFIGURATION ---
 ORIGINAL_INPUT_FOLDER = "input"
-MODEL_NAME = "Qwen3.6-35B-A3B-NonThinking"
+MODEL_NAME = "Qwen3.6-27B-NonThinking"
 MODEL_OUTPUT_FOLDER = "output-" + MODEL_NAME
 OUTPUT_JSON = "label_studio_"+ MODEL_NAME +"_predictions.json"
 
@@ -97,14 +97,10 @@ def main():
     
     # Scan the ORIGINAL input folder to get the Ground Truth texts
     for root, dirs, files in os.walk(ORIGINAL_INPUT_FOLDER):
-        # For path to be in same order on Mac and Windows
-        dirs.sort()
         for file in sorted(files):
             if file.endswith(".txt") or file.endswith(".md"):
                 original_full_path = os.path.join(root, file)
                 rel_path = os.path.relpath(original_full_path, ORIGINAL_INPUT_FOLDER)
-                # FIX: Force forward slashes so the JSON is identical on Mac and Windows
-                rel_path = rel_path.replace("\\", "/")                
                 
                 # Determine the expected path of the model's output file
                 # The generation script saves them as .md files
