@@ -37,9 +37,16 @@ def main():
     # 1. Map Golden Standard by relative path
     golden_details_map = {}
     for task in golden_data:
-        rel_path = task.get("rel_path")
+        # FIX: Check both the root and the "data" dictionary for rel_path
+        rel_path = task.get("rel_path") or task.get("data", {}).get("rel_path")
+        
         if rel_path:
-            entity_details = get_entity_set_golden(task.get("label", []))
+            # FIX: Normalize Windows backslashes to Mac/Linux forward slashes
+            rel_path = rel_path.replace("\\", "/")
+            
+            # Note: Checking "label" (Label Studio MIN-JSON) or "annotations" (Standard JSON)
+            labels = task.get("label", [])
+            entity_details = get_entity_set_golden(labels)
             golden_details_map[rel_path] = entity_details
 
     print("Merging annotations into predictions...")
@@ -48,7 +55,13 @@ def main():
     for task in predictions_data:
         rel_path = task.get("data", {}).get("rel_path")
         
-        if not rel_path or rel_path not in golden_details_map:
+        if not rel_path:
+            continue
+            
+        # FIX: Normalize the prediction paths just in case
+        rel_path = rel_path.replace("\\", "/")
+        
+        if rel_path not in golden_details_map:
             print(f"Warning: No golden standard found for {rel_path}. Skipping.")
             continue
             
