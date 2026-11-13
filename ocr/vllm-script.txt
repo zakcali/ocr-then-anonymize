@@ -1,0 +1,10 @@
+HF_HUB_OFFLINE=1 PYTORCH_ALLOC_CONF=expandable_segments:True VLLM_MARLIN_USE_ATOMIC_ADD=1 \
+uv run vllm serve QuantTrio/Qwen3-VL-32B-Instruct-AWQ \
+ --tensor-parallel-size 4 \
+ --async-scheduling \
+ --trust-remote-code \
+ --max-model-len 16384 \
+ --enforce-eager \
+ --limit-mm-per-prompt '{"video": 0}' \
+ --max-num-seqs 10 \
+ --disable-custom-all-reduce
