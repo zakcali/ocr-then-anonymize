@@ -36,7 +36,7 @@ HF_HUB_OFFLINE=1 TIKTOKEN_RS_CACHE_DIR=/home/zafer/.cache/tiktoken_cache PYTORCH
  --served-model-name openai/gpt-oss-120b \
  --tensor-parallel-size 4 \
  --async-scheduling \
- --gpu-memory-utilization 0.85 \
+ --gpu-memory-utilization 0.95 \
  --max-model-len 40000 \
  --enable-prefix-caching \
  --max-num-seqs 50
