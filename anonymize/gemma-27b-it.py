@@ -15,7 +15,7 @@ VLLM_URL = os.environ.get("VLLM_URL")
 if not VLLM_URL:
     raise RuntimeError("VLLM_URL environment variable is not set.")
 VLLM_KEY = "EMPTY"
-MODEL_NAME = "google/gemma-27b-it"
+MODEL_NAME = "google/gemma-3-27b-it"
 
 # Concurrency
 CONCURRENCY_LIMIT = 40
